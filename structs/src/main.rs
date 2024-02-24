@@ -8,9 +8,9 @@ struct User {
 // can create tuple structs that will help with typing 
 // with similar looking objects - ex below, a function
 // looking for Point tuple can't be passed a Color tuple
-struct Color(i32, i32, i32)
+struct Color(i32, i32, i32);
 
-struct Point(i32, i32, i32)
+struct Point(i32, i32, i32);
 
 
 fn main() {
