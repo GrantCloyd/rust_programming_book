@@ -1,9 +1,12 @@
 use std::io::stdin;
+use std::collections::HashMap;
+
 
 fn main() {
     println!("Welcome to the CLI employee interface!");
     println!("For instructions, enter help. Otherwise enter a command");
-
+    let mut department_users: HashMap<String, Vec<String>> = HashMap::new();
+    
     loop {
         let mut input = String::new();
         stdin().read_line(&mut input).expect("Error");
@@ -15,7 +18,7 @@ fn main() {
                 println!("Exiting program");
                 break; 
             }
-            _ => { handle_command(sanitized_input) }
+            _ => { commands::handle_command(sanitized_input, &mut department_users) }
         };
     }
 }
@@ -30,43 +33,4 @@ fn display_help_message() {
     println!("  ** Where x is the department");
 }
 
-fn handle_command(user_input: &str) {
-    let first_word = user_input.split_once(" ").unwrap_or_default().0;
-
-    match first_word {
-            "Add" => {
-                handle_add(&user_input);
-            }
-            "View" => {
-                handle_view(&user_input);
-            },
-            _ => { println!("Command not recognized. Type help for more information or exit to close the program") }
-        }
-}
-
-fn handle_add(input: &str) {
-    let iter = input.split_whitespace();
-
-    if check_for_length(iter.clone().count()) {
-        let user = iter.clone().nth(1).unwrap();
-        let department = iter.last().unwrap();
-        println!("Add command! {user} added to {department}")
-    } else {
-        println!("Add command not formatted properly")
-    }
-}
-
-fn handle_view(input: &str) {
-    let iter = input.split_whitespace();
-    
-    if check_for_length(iter.clone().count()) {
-        let department = iter.last().unwrap();
-        println!("View command! Viewing users from {department}")
-    } else {
-        println!("View command not formatted properly")
-    }
-}
-
-fn check_for_length(count: usize) -> bool {
-    count == 4 as usize
-}
+pub mod commands;
