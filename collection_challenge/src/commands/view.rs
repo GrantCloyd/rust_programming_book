@@ -10,7 +10,7 @@ pub fn handle_view(input: &str, department_users: &mut HashMap<String, Vec<Strin
 }
 
 fn view_users(iter: SplitWhitespace<'_>, department_users: &mut HashMap<String, Vec<String>>){
-    let department = iter.last().unwrap().to_string();
+    let department = super::get_last_word(iter);
     let users = department_users.get(&department);
 
     match users {

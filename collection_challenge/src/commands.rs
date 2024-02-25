@@ -1,4 +1,4 @@
-use std::collections::HashMap;
+use std::{collections::HashMap, str::SplitWhitespace};
 
 pub fn handle_command(user_input: &str, department_users: &mut HashMap<String, Vec<String>>) {
     let first_word = user_input.split_once(" ").unwrap_or_default().0;
@@ -20,6 +20,11 @@ fn format_error(error_type: &str){
 
 fn check_for_length(count: usize) -> bool {
     count == 4 as usize
+}
+
+fn get_last_word(iter:  SplitWhitespace<'_>) -> String {
+  let result = iter.last().unwrap().to_string();
+  result
 }
 
 mod add;
